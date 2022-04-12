@@ -1,0 +1,89 @@
+version: '2'
+
+networks:
+  bcnet:
+    # external: true
+    name: order-mgmt_bcnet
+
+services:
+
+  chaincode-orderform-peer0-org1:
+    build: ./chaincode-orderform
+    container_name: chaincode-orderform-peer0-org1
+    image: chaincode-orderform:amd64-v1.0.0
+    # hostname: chaincode-orderform-peer0-org1
+    environment:
+      - TZ=Asia/Taipei
+      - CHAINCODE_SERVER_ADDRESS=chaincode-orderform-peer0-org1:7052
+      - CHAINCODE_ID=orderform_1.0.0:ace9480510ac64b8d304e0bcb27bdfcc871cd48f234953288257cece9dcdaf9f
+    working_dir: /go/src
+    command: ["chaincode-orderform"]
+    expose:
+      - 7052
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "10"
+    networks:
+      - bcnet
+
+  chaincode-orderform-peer1-org1:
+    build: ./chaincode-orderform
+    container_name: chaincode-orderform-peer1-org1
+    image: chaincode-orderform:amd64-v1.0.0
+    environment:
+      - TZ=Asia/Taipei
+      - CHAINCODE_SERVER_ADDRESS=chaincode-orderform-peer1-org1:8052
+      - CHAINCODE_ID=orderform_1.0.0:ace9480510ac64b8d304e0bcb27bdfcc871cd48f234953288257cece9dcdaf9f
+    working_dir: /go/src
+    command: ["chaincode-orderform"]
+    expose:
+      - 8052
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "10"
+    networks:
+      - bcnet
+
+  chaincode-orderform-peer0-org2:
+    build: ./chaincode-orderform
+    container_name: chaincode-orderform-peer0-org2
+    image: chaincode-orderform:amd64-v1.0.0
+    environment:
+      - TZ=Asia/Taipei
+      - CHAINCODE_SERVER_ADDRESS=chaincode-orderform-peer0-org2:9052
+      - CHAINCODE_ID=orderform_1.0.0:ace9480510ac64b8d304e0bcb27bdfcc871cd48f234953288257cece9dcdaf9f
+    working_dir: /go/src
+    command: ["chaincode-orderform"]
+    expose:
+      - 9052
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "10"
+    networks:
+      - bcnet
+
+  chaincode-orderform-peer1-org2:
+    build: ./chaincode-orderform
+    container_name: chaincode-orderform-peer1-org2
+    image: chaincode-orderform:amd64-v1.0.0
+    environment:
+      - TZ=Asia/Taipei
+      - CHAINCODE_SERVER_ADDRESS=chaincode-orderform-peer1-org2:10052
+      - CHAINCODE_ID=orderform_1.0.0:ace9480510ac64b8d304e0bcb27bdfcc871cd48f234953288257cece9dcdaf9f
+    working_dir: /go/src
+    command: ["chaincode-orderform"]
+    expose:
+      - 10052
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "10"
+    networks:
+      - bcnet
